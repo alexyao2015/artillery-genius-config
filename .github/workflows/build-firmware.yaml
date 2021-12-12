@@ -44,9 +44,9 @@ jobs:
           path: |
             /tmp/.buildx-cache
             pio_build
-          key: ${{ matrix.arch }}-${{ env.MARLIN_VERSION }}-${{ github.sha }}
+          key: ${{ env.MARLIN_VERSION }}-${{ github.sha }}
           restore-keys: |
-            ${{ matrix.arch }}-${{ env.MARLIN_VERSION }}-
+            ${{ env.MARLIN_VERSION }}-
 
       - name: Build Builder
         run: |
