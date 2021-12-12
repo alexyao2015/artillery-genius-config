@@ -64,7 +64,9 @@ jobs:
       - name: Build Marlin
         run: |
           set -x
-          docker run -v ./pio_build:/marlin/.pio ci:${{ github.run_number }}
+          docker run \
+            -v ~/pio_build:/marlin/.pio \
+            ci:${{ github.run_number }}
 
       # Temp fix
       # https://github.com/docker/build-push-action/issues/252
