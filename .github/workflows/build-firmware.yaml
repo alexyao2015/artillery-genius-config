@@ -37,13 +37,13 @@ jobs:
             env.BUILDKIT_STEP_LOG_MAX_SPEED=100000000
           install: true
 
-      - name: Cache Docker layers
+      - name: Cache
         uses: actions/cache@v2
         continue-on-error: true
         with:
           path: |
             /tmp/.buildx-cache
-            ~/pio_build
+            pio_build
           key: ${{ matrix.arch }}-${{ env.MARLIN_VERSION }}-${{ github.sha }}
           restore-keys: |
             ${{ matrix.arch }}-${{ env.MARLIN_VERSION }}-
@@ -65,7 +65,7 @@ jobs:
         run: |
           set -x
           docker run \
-            -v ~/pio_build:/marlin/.pio \
+            -v ${PWD}/pio_build:/marlin/.pio \
             ci:${{ github.run_number }}
 
       # Temp fix
@@ -80,4 +80,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: firmware-Marlin_v${{ env.MARLIN_VERSION }}-${{ github.run_number }}
-          path: pio_build/build/mega2560/firmware.hex
+          path: /home/runner/pio_build/build/mega2560/firmware.hex
+          if-no-files-found: error
