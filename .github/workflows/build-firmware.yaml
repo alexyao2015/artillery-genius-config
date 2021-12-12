@@ -19,7 +19,7 @@ jobs:
           echo Building Marlin ${MARLIN_VERSION}
           echo "::set-output name=version::${MARLIN_VERSION}"
   build:
-    name: Build Docker Image
+    name: Build Marlin
     runs-on: ubuntu-latest
     needs: getversion
     env:
@@ -28,9 +28,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -51,7 +48,7 @@ jobs:
           restore-keys: |
             ${{ matrix.arch }}-${{ env.MARLIN_VERSION }}-
 
-      - name: Build Builder Container
+      - name: Build Builder
         run: |
           set -x
           docker build \
@@ -67,7 +64,7 @@ jobs:
       - name: Build Marlin
         run: |
           set -x
-          docker run ci:${{ github.run_number }} -v ./pio_build:/marlin/.pio .
+          docker run ci:${{ github.run_number }} -v ~/pio_build:/marlin/.pio .
 
       # Temp fix
       # https://github.com/docker/build-push-action/issues/252
