@@ -80,5 +80,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: firmware-Marlin_v${{ env.MARLIN_VERSION }}-${{ github.run_number }}
-          path: /home/runner/pio_build/build/mega2560/firmware.hex
+          path: pio_build/build/mega2560/firmware.hex
           if-no-files-found: error
