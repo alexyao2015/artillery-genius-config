@@ -58,11 +58,11 @@ jobs:
             --build-arg MARLIN_VERSION=${MARLIN_VERSION} \
             --tag ci:${{ github.run_number }} \
             --progress plain \
-            --file ./Dockerfile \
+            --file ./Marlin/Dockerfile \
             --cache-from type=local,src=/tmp/.buildx-cache \
             --cache-to type=local,dest=/tmp/.buildx-cache-new \
             --load \
-            .
+            ./Marlin
         
       - name: Build Marlin
         run: |
